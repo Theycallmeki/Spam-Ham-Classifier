@@ -6,41 +6,34 @@ A simple **Flask web application** that classifies emails as **spam** or **ham (
 
 ## Table of Contents
 
-1. [Requirements](#requirements)  
-2. [Setup Instructions](#setup-instructions)  
-3. [Database Initialization](#database-initialization)  
-4. [Training the Model](#training-the-model)  
-5. [Running the Application](#running-the-application)  
-6. [Using the App](#using-the-app)  
-7. [File Structure](#file-structure)  
-8. [Getting Started (Quick Setup)](#getting-started-quick-setup)  
+1. [Requirements](#1-requirements)  
+2. [Setup Instructions](#2-setup-instructions)  
+3. [Database Initialization](#3-database-initialization)  
+4. [Training the Model](#4-training-the-model)  
+5. [Running the Application](#5-running-the-application)  
+6. [Using the App](#6-using-the-app)  
+7. [File Structure](#7-file-structure)  
+8. [Getting Started (Quick Setup)](#8-getting-started-quick-setup)  
 
 ---
 
-## Requirements
+## 1. Requirements
 
-Install all dependencies using:
-
-```bash
-pip install -r requirements.txt
 Key packages:
 
-Flask
+- Flask
+- pandas
+- scikit-learn
+- joblib
+- numpy
 
-pandas
+---
 
-scikit-learn
+## 2. Setup Instructions
 
-joblib
-
-numpy
-
-Setup Instructions
 Clone the repository:
 
-bash
-Copy
-Edit
+```bash
 git clone <your-repo-url>
 cd <your-repo-folder>
 Create a virtual environment (recommended):
@@ -59,7 +52,7 @@ bash
 Copy
 Edit
 pip install -r requirements.txt
-Database Initialization
+3. Database Initialization
 The app uses SQLite to store email records.
 
 Database file: emails.db
@@ -74,9 +67,7 @@ content	TEXT
 true_label	TEXT
 prediction	TEXT
 
-Training the Model
-To train your ML model using spam.csv:
-
+4. Training the Model
 Ensure your CSV file has columns: text and label
 
 text → email content
@@ -101,7 +92,7 @@ Save spam_model.pkl and vectorizer.pkl for the Flask app
 
 After training, the script prints the model accuracy.
 
-Running the Application
+5. Running the Application
 Start the Flask server:
 
 bash
@@ -114,14 +105,14 @@ Add new emails through the form and see predictions
 
 Delete emails using the "Delete" button
 
-Using the App
+6. Using the App
 Add email: Enter email content and optionally provide the true label
 
 View emails: All emails are displayed in a table with predictions
 
 Delete emails: Remove entries from the database
 
-File Structure
+7. File Structure
 bash
 Copy
 Edit
@@ -136,22 +127,40 @@ spam-detection-app/
 │   └── index.html       # Web interface
 ├── requirements.txt     # Python dependencies
 └── README.md            # Project documentation
-Getting Started (Quick Setup)
+8. Getting Started (Quick Setup)
+Clone and navigate to the repository:
+
 bash
 Copy
 Edit
 git clone <your-repo-url>
 cd <your-repo-folder>
+Create virtual environment and activate:
+
+bash
+Copy
+Edit
 python -m venv venv
 # Linux/Mac
 source venv/bin/activate
 # Windows
 venv\Scripts\activate
-pip install -r requirements.txt
-python train.py           # Train the model
-python app.py             # Run the web app
-Open your browser at http://127.0.0.1:5000 to start adding emails and testing spam predictions.
+Install dependencies:
 
-pgsql
+bash
 Copy
 Edit
+pip install -r requirements.txt
+Train the model:
+
+bash
+Copy
+Edit
+python train.py
+Run the web app:
+
+bash
+Copy
+Edit
+python app.py
+Open your browser at http://127.0.0.1:5000 to start adding emails and testing spam predictions.
