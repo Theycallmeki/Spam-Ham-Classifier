@@ -1,122 +1,121 @@
-# Spam Detection Web App
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Detection Web App</title>
+</head>
+<body>
 
-A simple **Flask web application** that classifies emails as **spam** or **ham (not spam)** using a machine learning model trained on a `spam.csv` dataset. Users can add emails, see predictions, and manage the database through the web interface.
+<h1>Spam Detection Web App</h1>
 
----
+<p>A simple <strong>Flask web application</strong> that classifies emails as <strong>spam</strong> or <strong>ham (not spam)</strong> using a machine learning model trained on a <code>spam.csv</code> dataset. Users can add emails, see predictions, and manage the database through the web interface.</p>
 
-## Table of Contents
+<hr>
 
-1. [Requirements](#1-requirements)  
-2. [Setup Instructions](#2-setup-instructions)  
-3. [Database Initialization](#3-database-initialization)  
-4. [Training the Model](#4-training-the-model)  
-5. [Running the Application](#5-running-the-application)  
-6. [Using the App](#6-using-the-app)  
-7. [File Structure](#7-file-structure)  
-8. [Getting Started (Quick Setup)](#8-getting-started-quick-setup)  
+<h2>Table of Contents</h2>
+<ol>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#setup-instructions">Setup Instructions</a></li>
+    <li><a href="#database-initialization">Database Initialization</a></li>
+    <li><a href="#training-the-model">Training the Model</a></li>
+    <li><a href="#running-the-application">Running the Application</a></li>
+    <li><a href="#using-the-app">Using the App</a></li>
+    <li><a href="#file-structure">File Structure</a></li>
+    <li><a href="#getting-started-quick-setup">Getting Started (Quick Setup)</a></li>
+</ol>
 
----
+<h2 id="requirements">1. Requirements</h2>
+<p>Key packages:</p>
+<ul>
+    <li>Flask</li>
+    <li>pandas</li>
+    <li>scikit-learn</li>
+    <li>joblib</li>
+    <li>numpy</li>
+</ul>
 
-## 1. Requirements
+<h2 id="setup-instructions">2. Setup Instructions</h2>
+<p>Clone the repository:</p>
+<pre><code>git clone &lt;your-repo-url&gt;
+cd &lt;your-repo-folder&gt;</code></pre>
 
-Key packages:
-
-- Flask
-- pandas
-- scikit-learn
-- joblib
-- numpy
-
----
-
-## 2. Setup Instructions
-
-Clone the repository:
-
-```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
-Create a virtual environment (recommended):
-
-bash
-Copy
-Edit
-python -m venv venv
+<p>Create a virtual environment (recommended):</p>
+<pre><code>python -m venv venv
 # Linux/Mac
 source venv/bin/activate
 # Windows
-venv\Scripts\activate
-Install dependencies:
+venv\Scripts\activate</code></pre>
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-3. Database Initialization
-The app uses SQLite to store email records.
+<p>Install dependencies:</p>
+<pre><code>pip install -r requirements.txt</code></pre>
 
-Database file: emails.db
+<h2 id="database-initialization">3. Database Initialization</h2>
+<p>The app uses SQLite to store email records.</p>
+<p>Database file: <code>emails.db</code></p>
+<p>The database is automatically created when running the app for the first time.</p>
+<p>Table structure:</p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>Column</th>
+        <th>Type</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>INTEGER PRIMARY KEY AUTOINCREMENT</td>
+    </tr>
+    <tr>
+        <td>content</td>
+        <td>TEXT</td>
+    </tr>
+    <tr>
+        <td>true_label</td>
+        <td>TEXT</td>
+    </tr>
+    <tr>
+        <td>prediction</td>
+        <td>TEXT</td>
+    </tr>
+</table>
 
-The database is automatically created when running the app for the first time.
+<h2 id="training-the-model">4. Training the Model</h2>
+<p>Ensure your CSV file has columns: <code>text</code> and <code>label</code></p>
+<ul>
+    <li><code>text</code> → email content</li>
+    <li><code>label</code> → "spam" or "ham"</li>
+</ul>
 
-Table structure:
+<p>Run the training script:</p>
+<pre><code>python train.py</code></pre>
 
-Column	Type
-id	INTEGER PRIMARY KEY AUTOINCREMENT
-content	TEXT
-true_label	TEXT
-prediction	TEXT
+<p>This will:</p>
+<ul>
+    <li>Split the dataset into training and testing sets</li>
+    <li>Vectorize text using CountVectorizer</li>
+    <li>Train a Multinomial Naive Bayes model</li>
+    <li>Save <code>spam_model.pkl</code> and <code>vectorizer.pkl</code> for the Flask app</li>
+</ul>
+<p>After training, the script prints the model accuracy.</p>
 
-4. Training the Model
-Ensure your CSV file has columns: text and label
+<h2 id="running-the-application">5. Running the Application</h2>
+<p>Start the Flask server:</p>
+<pre><code>python app.py</code></pre>
 
-text → email content
+<p>Access the web app at <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a></p>
+<ul>
+    <li>Add new emails through the form and see predictions</li>
+    <li>Delete emails using the "Delete" button</li>
+</ul>
 
-label → "spam" or "ham"
+<h2 id="using-the-app">6. Using the App</h2>
+<ul>
+    <li><strong>Add email:</strong> Enter email content and optionally provide the true label</li>
+    <li><strong>View emails:</strong> All emails are displayed in a table with predictions</li>
+    <li><strong>Delete emails:</strong> Remove entries from the database</li>
+</ul>
 
-Run the training script:
-
-bash
-Copy
-Edit
-python train.py
-This will:
-
-Split the dataset into training and testing sets
-
-Vectorize text using CountVectorizer
-
-Train a Multinomial Naive Bayes model
-
-Save spam_model.pkl and vectorizer.pkl for the Flask app
-
-After training, the script prints the model accuracy.
-
-5. Running the Application
-Start the Flask server:
-
-bash
-Copy
-Edit
-python app.py
-Access the web app at http://127.0.0.1:5000
-
-Add new emails through the form and see predictions
-
-Delete emails using the "Delete" button
-
-6. Using the App
-Add email: Enter email content and optionally provide the true label
-
-View emails: All emails are displayed in a table with predictions
-
-Delete emails: Remove entries from the database
-
-7. File Structure
-bash
-Copy
-Edit
-spam-detection-app/
+<h2 id="file-structure">7. File Structure</h2>
+<pre><code>spam-detection-app/
+│
 ├── app.py               # Flask app
 ├── train.py             # Model training script
 ├── spam_model.pkl       # Saved ML model (after training)
@@ -126,41 +125,22 @@ spam-detection-app/
 ├── templates/
 │   └── index.html       # Web interface
 ├── requirements.txt     # Python dependencies
-└── README.md            # Project documentation
-8. Getting Started (Quick Setup)
-Clone and navigate to the repository:
+└── README.md            # Project documentation</code></pre>
 
-bash
-Copy
-Edit
-git clone <your-repo-url>
-cd <your-repo-folder>
-Create virtual environment and activate:
-
-bash
-Copy
-Edit
+<h2 id="getting-started-quick-setup">8. Getting Started (Quick Setup)</h2>
+<pre><code>git clone &lt;your-repo-url&gt;
+cd &lt;your-repo-folder&gt;
 python -m venv venv
 # Linux/Mac
 source venv/bin/activate
 # Windows
 venv\Scripts\activate
-Install dependencies:
-
-bash
-Copy
-Edit
 pip install -r requirements.txt
-Train the model:
+python train.py           # Train the model
+python app.py             # Run the web app</code></pre>
 
-bash
-Copy
-Edit
-python train.py
-Run the web app:
+<p>Then open your browser at <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a></p>
+<p>You can immediately start adding emails and testing spam predictions.</p>
 
-bash
-Copy
-Edit
-python app.py
-Open your browser at http://127.0.0.1:5000 to start adding emails and testing spam predictions.
+</body>
+</html>
