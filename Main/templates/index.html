@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+">
+    <div style="
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    ">
+        <!-- Header Section -->
+        <div style="
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        ">
+            <h1 style="
+                margin: 0;
+                font-size: 3rem;
+                font-weight: 700;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            ">Spam Detector</h1>
+            <p style="
+                margin: 10px 0 0 0;
+                font-size: 1.1rem;
+                color: #666;
+                font-weight: 500;
+            ">Advanced email security analysis powered by AI</p>
+        </div>
+
+        <!-- Email Check Form -->
+        <div style="
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        ">
+            <h2 style="
+                margin: 0 0 25px 0;
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: #333;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                🔍 Check New Email
+            </h2>
+            
+            <form action="/add" method="POST">
+                <div style="margin-bottom: 20px;">
+                    <textarea 
+                        name="content" 
+                        rows="8" 
+                        placeholder="Paste the raw email text here for analysis..."
+                        style="
+                            width: 100%;
+                            padding: 20px;
+                            border: 2px solid #e1e5e9;
+                            border-radius: 15px;
+                            font-size: 16px;
+                            font-family: 'Consolas', 'Monaco', monospace;
+                            resize: vertical;
+                            transition: all 0.3s ease;
+                            background: #fafbfc;
+                            box-sizing: border-box;
+                        "
+                        onmouseover="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'"
+                        onmouseout="this.style.borderColor='#e1e5e9'; this.style.boxShadow='none'"
+                        onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)'; this.style.background='#fff'"
+                        onblur="this.style.borderColor='#e1e5e9'; this.style.boxShadow='none'; this.style.background='#fafbfc'"
+                    ></textarea>
+                </div>
+                
+                <button 
+                    type="submit"
+                    style="
+                        background: linear-gradient(45deg, #667eea, #764ba2);
+                        color: white;
+                        border: none;
+                        padding: 18px 40px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    "
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 35px rgba(102, 126, 234, 0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.3)'"
+                    onmousedown="this.style.transform='translateY(0)'"
+                >
+                    🚀 Analyze Email
+                </button>
+            </form>
+        </div>
+
+        <!-- Saved Emails Table -->
+        <div style="
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        ">
+            <h2 style="
+                margin: 0 0 30px 0;
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: #333;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                📊 Analysis History
+            </h2>
+            
+            <div style="overflow-x: auto; border-radius: 15px;">
+                <table style="
+                    width: 100%;
+                    border-collapse: collapse;
+                    background: white;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                ">
+                    <thead>
+                        <tr style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                            <th style="
+                                padding: 20px 15px;
+                                text-align: left;
+                                color: white;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                border: none;
+                            ">ID</th>
+                            <th style="
+                                padding: 20px 15px;
+                                text-align: left;
+                                color: white;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                border: none;
+                            ">Email Content</th>
+                            <th style="
+                                padding: 20px 15px;
+                                text-align: center;
+                                color: white;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                border: none;
+                            ">Status</th>
+                            <th style="
+                                padding: 20px 15px;
+                                text-align: center;
+                                color: white;
+                                font-weight: 600;
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                border: none;
+                            ">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for email in emails %}
+                        <tr style="
+                            border-bottom: 1px solid #f0f4f8;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.backgroundColor='#f8fafc'" onmouseout="this.style.backgroundColor='white'">
+                            <td style="
+                                padding: 20px 15px;
+                                font-weight: 600;
+                                color: #667eea;
+                                font-size: 1rem;
+                                border: none;
+                            ">#{{ email[0] }}</td>
+                            <td style="
+                                padding: 20px 15px;
+                                max-width: 400px;
+                                font-family: 'Consolas', 'Monaco', monospace;
+                                font-size: 0.9rem;
+                                color: #555;
+                                line-height: 1.5;
+                                border: none;
+                                word-wrap: break-word;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            ">{{ email[1] }}</td>
+                            <td style="
+                                padding: 20px 15px;
+                                text-align: center;
+                                border: none;
+                            ">
+                                <span style="
+                                    padding: 8px 16px;
+                                    border-radius: 25px;
+                                    font-size: 0.85rem;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.5px;
+                                    {% if email[2]|lower == 'spam' %}
+                                        background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                                        color: white;
+                                        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+                                    {% elif email[2]|lower == 'legitimate' or email[2]|lower == 'ham' %}
+                                        background: linear-gradient(45deg, #51cf66, #40c057);
+                                        color: white;
+                                        box-shadow: 0 4px 15px rgba(81, 207, 102, 0.3);
+                                    {% else %}
+                                        background: linear-gradient(45deg, #ffd43b, #fab005);
+                                        color: white;
+                                        box-shadow: 0 4px 15px rgba(255, 212, 59, 0.3);
+                                    {% endif %}
+                                ">
+                                    {% if email[2]|lower == 'spam' %}
+                                        ⚠️ {{ email[2] }}
+                                    {% elif email[2]|lower == 'legitimate' or email[2]|lower == 'ham' %}
+                                        ✅ {{ email[2] }}
+                                    {% else %}
+                                        🔍 {{ email[2] }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td style="
+                                padding: 20px 15px;
+                                text-align: center;
+                                border: none;
+                            ">
+                                <a 
+                                    href="/delete/{{ email[0] }}"
+                                    style="
+                                        background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                                        color: white;
+                                        text-decoration: none;
+                                        padding: 10px 20px;
+                                        border-radius: 8px;
+                                        font-size: 0.85rem;
+                                        font-weight: 600;
+                                        transition: all 0.3s ease;
+                                        display: inline-block;
+                                        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+                                        text-transform: uppercase;
+                                        letter-spacing: 0.5px;
+                                    "
+                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 107, 107, 0.4)'"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 107, 107, 0.3)'"
+                                >
+                                    🗑️ Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
