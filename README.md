@@ -49,8 +49,10 @@ bash
 Copy
 Edit
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+# Linux/Mac
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
 Install dependencies:
 
 bash
@@ -124,7 +126,6 @@ bash
 Copy
 Edit
 spam-detection-app/
-│
 ├── app.py               # Flask app
 ├── train.py             # Model training script
 ├── spam_model.pkl       # Saved ML model (after training)
@@ -142,23 +143,15 @@ Edit
 git clone <your-repo-url>
 cd <your-repo-folder>
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+# Linux/Mac
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
 pip install -r requirements.txt
 python train.py           # Train the model
 python app.py             # Run the web app
-Then open your browser at:
-
-cpp
-Copy
-Edit
-http://127.0.0.1:5000
-You can immediately start adding emails and testing spam predictions.
+Open your browser at http://127.0.0.1:5000 to start adding emails and testing spam predictions.
 
 pgsql
 Copy
 Edit
-
-This keeps **all content inside sections** neatly, no overflow.  
-
-If you want, I can also **add a small workflow diagram at the bottom** showing how the app, training, and database interact. Do you want me to add that?
